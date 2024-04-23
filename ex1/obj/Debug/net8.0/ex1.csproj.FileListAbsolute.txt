@@ -135,3 +135,4 @@ C:\VD\IPCA\PDS\Test\ex1\ex1\obj\Debug\net8.0\refint\ex1.dll
 C:\VD\IPCA\PDS\Test\ex1\ex1\obj\Debug\net8.0\ex1.pdb
 C:\VD\IPCA\PDS\Test\ex1\ex1\obj\Debug\net8.0\ex1.genruntimeconfig.cache
 C:\VD\IPCA\PDS\Test\ex1\ex1\obj\Debug\net8.0\ref\ex1.dll
+C:\VD\IPCA\PDS\Test\ex1\ex1\obj\Debug\net8.0\ex1.sourcelink.json

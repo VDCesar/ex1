@@ -1,0 +1,69 @@
+https://www.youtube.com/watch?v=cSnoAGHKVus&list=PL82C6-O4XrHcNJd4ejg8pX5fZaIDZmXyn&index=32
+
+---------------------------------------------------------------------------------
+
+
+0º ---- dotnet new webapi - o ProjectName
+
+1º ---- 
+EntityFrameWork (ORM - Oriented Relational Model): helps us make the realation/link between our code and database
+
+ (Ctrl + Shift + P  --> open NugetGallery and installs the EFs above)
+
+- Microsoft.EntityFrameworkCore.SqlServer
+- Microsoft.EntityFrameworkCore.Tools
+- Microsoft.EntityFrameworkCore.Desgin
+
+2º ---- DbContext
+
+Criar a pasta "Data" e criar o arquivo ApplicationDBContext.cs dentro desta;
+	- Serve para, entre outras coisas, fazer procura de cada tabela da 	nossa bd;
+	
+	A Classe tem de herdar de :DbContext
+
+	Nota: Não esquecer de enviar o context para a classe pai, a partir 	do construtor:
+
+		public ApplicationDBContext(DbContextOptions 				dbContextOptions):base(dbContextOptions)
+        	{            
+        	}
+
+	- Os DbSet<NomeDosModeles> NomeDaTabelaASerCriada {get; set} 	permitem-nos gerir os 	nossos modelos dentro da bd
+
+	
+3º ---- Adicionar o serviço do DBContext ao programa
+
+	em Program.cs e antes do builder.Build();, temos de adicionar o 	nosso serviço do DbContex, conforme indicado abaixo:
+
+
+	builder.Services.AddDbContext<ApplicationDBContext>(oprions => {
+    		oprions.UseSqlServer(builder.Configuration.GetConnectionString("Defa		ultConnection"));
+	});
+
+4º ---- Adicionar a ConnectionSring no ficheiro appsettings.json 
+
+	O nome deve ser 	igual ao indicado em 	"...GetConnectionString("DefaultConnection")"
+
+
+	Caso decidimos criar "Migrations" (geração do código para criar as nossas 	tabelas), temos de utilizar os seguintes comandos:
+
+	No vs code, pode instalar o EF por meio do seguinte comando:
+	"dotnet tool install --global dotnet-ef"	
+
+	dotnet ef migrations add init (gera o código)
+	dotnet ef database update (apenas depois deste é que as tabelas são criadas)
+
+5º ---- Criar a Pasta "Controllers"
+	
+	- As classes nesta pasta herdam as funs de :ControllerBase
+	- definimos a rota da antes da declaração da classe;
+	- Podemos colocar o nome da classe de forma implícita ou apenas indicar o 	termo "Controller":
+		[Route("api/[Controller]")] ou [Route("api/[Nome]")]
+	Uma vez que a classe herda da ControllerBse, podemos usar o [ApiController] 	antes da declaração da classe, para identidicar que é um controller;
+
+ 		
+6º ---- É necessário adicionar os nossos controllers no "Program.cs", conforme 	indicado abaixo:
+		builder.Services.AddControllers();
+	- Também é necessário adicionar o app.MapControllers(); antes do app.Run();, 	para podermos usar, por exemplo, o swagger;
+
+
+7º ---- dotnet run / dotnet watch run
